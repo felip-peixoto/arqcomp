@@ -1,0 +1,25 @@
+# Arquivos de compilação e objetos gerados pelo GHDL
+*.o
+*.cf
+work-obj93.cf
+
+# Pasta de trabalho padrão do GHDL
+/work/
+
+# Arquivos de waveform (simulação) para o GTKWave
+*.ghw
+*.vcd
+
+# Arquivos de log, temporários e de backup
+*.log
+*.bak
+*.tmp
+
+# Pastas comuns de saída de ferramentas de síntese ou simulação
+/output_files/
+/simulation/
+
+# Arquivos específicos de alguns editores
+.vscode/
+.idea/
+*.swp
