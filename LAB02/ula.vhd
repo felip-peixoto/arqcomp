@@ -4,13 +4,12 @@ use ieee.numeric_std.all;
 
 entity ula is 
     port {
-        entr_A : in unsigned(15 downto 0);
-        entr_B : in unsigned(15 downto 0);
-        selec_op : in unsigned(1 downto 0); --Escolher entre 4 operações (2 Bits)
-        carry    : out std_logic;
-        saida    : out unsigned(15 downto 0)
+        entr_A      : in unsigned(15 downto 0);
+        entr_B      : in unsigned(15 downto 0);
+        selec_op    : in unsigned(1 downto 0); --Escolher entre 4 operações (2 Bits)
+        carry_soma  : out std_logic;
+        saida       : out unsigned(15 downto 0)
     };
-
 end entity;
 
 architecture arq of ula is
@@ -35,9 +34,5 @@ begin
     
     soma_extendida <= ('0' & entr_A) + ('0' & entr_B);
 
-    carry <= soma_extendida(16) when selec_op = "00" else '0';
-
-    
-             
-
+    carry <= soma_extendida(16) when selec_op = "00" else '0';         
 end architecture arq;
