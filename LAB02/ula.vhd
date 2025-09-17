@@ -7,7 +7,8 @@ entity ula is
         entr_A : in unsigned(15 downto 0);
         entr_B : in unsigned(15 downto 0);
         selec_op : in unsigned(1 downto 0); --Escolher entre 4 operações (2 Bits)
-        saida    : out unsigned(15 downto 0);
+        carry    : out std_logic;
+        saida    : out unsigned(15 downto 0)
     };
 
 end entity;
@@ -17,6 +18,8 @@ architecture arq of ula is
     signal op_sub  : unsigned(15 downto 0);
     signal op_and  : unsigned(15 downto 0);
     signal op_or   : unsigned(15 downto 0);
+
+    signal soma_carry : unsigned(16 downto 0); --Utilizaremos para encontrar o carry
 begin 
 
     op_soma = entr_A +   entr_B;
@@ -30,7 +33,9 @@ begin
              op_or   when selec_op = "11" else
              "0000000000000000";
     
-    
+    soma_extendida <= ('0' & entr_A) + ('0' & entr_B);
+
+    carry <= soma_extendida(16) when selec_op = "00" else '0';
 
     
              
