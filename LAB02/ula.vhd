@@ -6,7 +6,7 @@ entity ula is
     port {
         entr_A : in unsigned(15 downto 0);
         entr_B : in unsigned(15 downto 0);
-        selec_op : in unsigned(1 downto 0); --Escolher entre 4 operações
+        selec_op : in unsigned(1 downto 0); --Escolher entre 4 operações (2 Bits)
         saida    : out unsigned(15 downto 0);
     };
 
@@ -23,7 +23,7 @@ begin
     op_sub  = entr_A -   entr_B;
     op_and  = entr_A and entr_B;
     op_or   = entr_A or  entr_B;
-
+ 
     saida <= op_soma when selec_op = "00" else 
              op_sub  when selec_op = "01" else
              op_and  when selec_op = "10" else
