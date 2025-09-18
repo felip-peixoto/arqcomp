@@ -2,13 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
--- A entidade do testbench é sempre vazia.
 entity ula_tb is
 end entity ula_tb;
 
-architecture a_ula_tb of ula_tb is
-
-    -- 1. Declarar o componente que vamos testar (sua ULA)
+architecture tb of ula_tb is
     component ula is
         port (
             entr_A      : in unsigned(15 downto 0);
@@ -22,7 +19,6 @@ architecture a_ula_tb of ula_tb is
         );
     end component ula;
 
-    -- 2. Criar sinais para conectar às portas do componente
     signal s_entr_A   : unsigned(15 downto 0) := (others => '0');
     signal s_entr_B   : unsigned(15 downto 0) := (others => '0');
     signal s_selec_op : unsigned(1 downto 0) := "00";
@@ -32,13 +28,10 @@ architecture a_ula_tb of ula_tb is
     signal s_sinal    : std_logic;
     signal s_saida    : unsigned(15 downto 0);
 
-    -- Constante para o tempo de cada teste
-    constant periodo : time := 20 ns;
+    constant PERIODO : time := 20 ns;
 
 begin
-
-    -- 3. Instanciar o componente (Unit Under Test - UUT)
-    uut: ula port map (
+    UUT: ula port map (
         entr_A      => s_entr_A,
         entr_B      => s_entr_B,
         selec_op    => s_selec_op,
@@ -49,92 +42,72 @@ begin
         saida       => s_saida
     );
 
-    -- 4. Processo que gera os estímulos para testar a ULA
-    stimulus_process: process
+    stimulus_proc: process
     begin
-        -- ==========================================================
-        -- === TESTES BÁSICOS (JÁ REALIZADOS) ===
-        -- ==========================================================
+        --SOMA
         s_selec_op <= "00";
-        s_entr_A <= to_unsigned(5, 16);
-        s_entr_B <= to_unsigned(10, 16);
-        wait for periodo;
 
+        -- Saida = 000F, Z = 0, SINAL = 0, CARRY = 0, OVERFLOW = 0
+        s_entr_A <= to_unsigned(10, 16);
+        s_entr_B <= to_unsigned(5, 16);
+        wait for PERIODO;
+
+        -- SAIDA = 0, Z = 1, SINAL = 0, CARRY = 1, OVERFLOW = 0
         s_entr_A <= x"FFFF";
         s_entr_B <= x"0001";
-        wait for periodo;
-        
-        s_entr_A <= x"7000";
-        s_entr_B <= x"7000";
-        wait for periodo;
-        
-        s_selec_op <= "01";
-        s_entr_A <= to_unsigned(100, 16);
-        s_entr_B <= to_unsigned(40, 16);
-        wait for periodo;
-        
-        s_entr_A <= to_unsigned(50, 16);
-        s_entr_B <= to_unsigned(50, 16);
-        wait for periodo;
-        
-        s_entr_A <= to_unsigned(10, 16);
-        s_entr_B <= to_unsigned(20, 16);
-        wait for periodo;
-        
-        s_entr_A <= x"7000";
-        s_entr_B <= x"9000";
-        wait for periodo;
+        wait for PERIODO;
 
-        s_selec_op <= "10";
-        s_entr_A <= to_unsigned(123, 16);
-        s_entr_B <= to_unsigned(45, 16);
-        wait for periodo;
-        
-        s_selec_op <= "11";
-        wait for periodo;
-
-        -- ==========================================================
-        -- === TESTES CRITERIOSOS (NEGATIVOS E CASOS DE CONTORNO) ===
-        -- ==========================================================
-        
-        -- Teste 10: Maior positivo (7FFF) + 1. DEVE causar overflow.
-        -- Expectativa: 7FFF + 1 = 8000 (menor negativo). Positivo + Positivo -> Negativo = Overflow.
-        s_selec_op <= "00";
+        -- SAIDA = 8000, Z = 0, SINAL = 1, CARRY = 0, OVERFLOW = 1
         s_entr_A <= x"7FFF";
         s_entr_B <= x"0001";
-        wait for periodo;
+        wait for PERIODO;
 
-        -- Teste 11: Menor negativo (8000) - 1. DEVE causar overflow.
-        -- Expectativa: 8000 - 1 = 7FFF (maior positivo). Negativo - Positivo -> Positivo = Overflow.
+        --SUBTRACAO
         s_selec_op <= "01";
-        s_entr_A <= x"8000";
-        s_entr_B <= x"0001";
-        wait for periodo;
 
-        -- Teste 12: Um número mais seu negativo. DEVE resultar em zero.
-        -- Vamos testar 100 + (-100). -100 em 16 bits C2 é 65436.
-        s_selec_op <= "00";
-        s_entr_A <= to_unsigned(100, 16);
-        s_entr_B <= to_unsigned(65436, 16); -- 65436 é -100 em complemento de 2
-        wait for periodo;
-
-        -- Teste 13: Zero menos um número. DEVE resultar no negativo do número.
-        -- Vamos testar 0 - 50. O resultado deve ser -50 (65486 ou FFC EH).
-        s_selec_op <= "01";
-        s_entr_A <= to_unsigned(0, 16);
+        -- SAIDA = 0, Z = 1, SINAL = 0, CARRY = 1, OVERFLOW = 0
+        s_entr_A <= to_unsigned(50, 16);
         s_entr_B <= to_unsigned(50, 16);
-        wait for periodo;
+        wait for PERIODO;
 
-        -- Teste 14: -1 + Menor Negativo
-        -- Expectativa: FFFF + 8000 = 17FFF. O resultado em 16 bits é 7FFF.
-        -- Negativo + Negativo -> Positivo = Overflow.
-        s_selec_op <= "00";
-        s_entr_A <= x"FFFF"; -- -1
-        s_entr_B <= x"8000"; -- -32768
-        wait for periodo;
+        -- SAIDA = FFF6, Z = 0, SINAL = 1, CARRY = 0, OVERFLOW = 0
+        s_entr_A <= to_unsigned(10, 16);
+        s_entr_B <= to_unsigned(20, 16);
+        wait for PERIODO;
+        
+        -- SAIDA = 7FFF, Z = 0, SINAL = 0, CARRY = 1, OVERFLOW = 1
+        s_entr_A <= x"8000"; -- Menor negativo (-32768)
+        s_entr_B <= x"0001";
+        wait for PERIODO;
 
-        -- Fim da simulação
+        --AND
+        s_selec_op <= "10";
+
+        -- SAIDA = 0F00, Z = 0, SINAL = 0
+        s_entr_A <= x"FFFF";
+        s_entr_B <= x"0F00";
+        wait for PERIODO;
+
+        -- SAIDA = 0000, Z = 1, SINAL = 0
+        s_entr_A <= x"F0F0";
+        s_entr_B <= x"0F0F";
+        wait for PERIODO;
+
+        --OR
+        s_selec_op <= "11";
+
+        -- SAIDA = FFFF, Z = 0, SINAL = 1
+        s_entr_A <= x"F0F0";
+        s_entr_B <= x"0F0F";
+        wait for PERIODO;
+
+        -- SAIDA = ABCD, Z = 0, SINAL = 1
+        s_entr_A <= x"ABCD";
+        s_entr_B <= x"0000";
+        wait for PERIODO;
+
+        report "Simulacao concluida com !";
         wait;
-    end process stimulus_process;
+    end process stimulus_proc;
 
-end architecture a_ula_tb;
+end architecture tb;
