@@ -43,11 +43,12 @@ begin
     carry_sub    <= not sub_extendida(16); 
     overflow_sub <= '1' when (entr_A(15) /= entr_B(15)) and (entr_B(15) = op_sub(15)) else '0';
 
-
-    sinal_saida <= op_soma when selec_op = "00" else 
-             op_sub  when selec_op = "01" else
-             op_igual  when selec_op = "10" else
-             op_maior   when selec_op = "11" else
+        -- # SINAL DA SAIDA #
+        
+    sinal_saida <= op_soma when selec_op = "00" else    --00 SOMA
+             op_sub  when selec_op = "01" else          --01 SUBTRAI
+             op_igual  when selec_op = "10" else        --10 IGUAL
+             op_maior   when selec_op = "11" else       --11 MAIOR
              "0000000000000000";
     
     
