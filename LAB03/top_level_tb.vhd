@@ -98,8 +98,6 @@ begin
         wait for CLK_PERIOD;
         banco_wr_en_s      <= '0';
 
-        
-        
         constante_in_s     <= to_unsigned(0, 16);
         sel_mux_ula_B_s    <= '1';
         selec_op_ula_s     <= ULA_SUB;
@@ -121,8 +119,13 @@ begin
         banco_wr_en_s      <= '1';
         wait for CLK_PERIOD;
         banco_wr_en_s      <= '0';
-
         
+        addr_reg_leitura_s <= "001"; 
+        sel_mux_ula_B_s    <= '0';     
+        selec_op_ula_s     <= ULA_ADD; 
+        acc_wr_en_s        <= '1'; 
+        wait for CLK_PERIOD;
+        acc_wr_en_s        <= '0'; 
         wait;
     end process;
 

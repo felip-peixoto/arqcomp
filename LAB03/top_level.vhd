@@ -14,7 +14,6 @@ entity top_level is
         acc_wr_en        : in  std_logic;
         sel_mux_banco_in : in  std_logic;
         sel_mux_ula_B    : in  std_logic;
-
         carry_out        : out std_logic;
         overflow_out     : out std_logic;
         zero_out         : out std_logic;
@@ -24,7 +23,7 @@ end entity;
 
 architecture a_top_level of top_level is
 
-    component ula is 
+    component ula is
         port (
             entr_A      : in unsigned(15 downto 0);
             entr_B      : in unsigned(15 downto 0);
@@ -80,8 +79,8 @@ begin
         data_in  => banco_in,
         data_out => banco_out
     );
-    
-    banco_in <= constante_in when sel_mux_banco_in = '0' else  --'Carga de constantes': 'Carrega diretamente com LD sem somar',
+
+    banco_in <= constante_in when sel_mux_banco_in = '0' else
                 acc_out      when sel_mux_banco_in = '1' else
                 (others => '0');
 
@@ -101,4 +100,3 @@ begin
     );
 
 end architecture;
-

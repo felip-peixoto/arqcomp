@@ -6,11 +6,11 @@ entity banco_reg is
     port (
         clk      : in std_logic;
         rst      : in std_logic;
-        wr_en    : in std_logic;                  
-        addr_r   : in unsigned(2 downto 0);       
-        addr_w   : in unsigned(2 downto 0);       
+        wr_en    : in std_logic;
+        addr_r   : in unsigned(2 downto 0);
+        addr_w   : in unsigned(2 downto 0);
         data_in  : in unsigned(15 downto 0);
-        data_out : out unsigned(15 downto 0)     
+        data_out : out unsigned(15 downto 0)
     );
 end entity;
 
@@ -26,7 +26,6 @@ architecture a_banco_reg of banco_reg is
     end component;
 
     signal saida_r0, saida_r1, saida_r2, saida_r3, saida_r4, saida_r5, saida_r6 : unsigned(15 downto 0);
-    
     signal wr_en_r0, wr_en_r1, wr_en_r2, wr_en_r3, wr_en_r4, wr_en_r5, wr_en_r6 : std_logic;
 
 begin
@@ -53,6 +52,5 @@ begin
                 saida_r4 when addr_r = "100" else
                 saida_r5 when addr_r = "101" else
                 saida_r6 when addr_r = "110" else
-                "0000000000000000";
-
+                (others => '0');
 end architecture;
