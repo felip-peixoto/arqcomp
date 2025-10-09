@@ -29,15 +29,17 @@ architecture a_top_level_tb of top_level_tb is
 
     -- 2. Sinais de controle e dados
     signal clk_s              : std_logic := '0';
-    signal rst_s              : std_logic;
-    signal constante_in_s     : unsigned(15 downto 0);
-    signal selec_op_ula_s     : unsigned(1 downto 0);
-    signal addr_reg_leitura_s : unsigned(2 downto 0);
-    signal addr_reg_escrita_s : unsigned(2 downto 0);
-    signal banco_wr_en_s      : std_logic;
-    signal acc_wr_en_s        : std_logic;
-    signal sel_mux_banco_in_s : std_logic;
-    signal sel_mux_ula_B_s    : std_logic;
+    signal rst_s              : std_logic := '1'; -- Já começa em reset
+    signal constante_in_s     : unsigned(15 downto 0) := (others => '0');
+    signal selec_op_ula_s     : unsigned(1 downto 0) := "00";
+    signal addr_reg_leitura_s : unsigned(2 downto 0) := "000";
+    signal addr_reg_escrita_s : unsigned(2 downto 0) := "000";
+    signal banco_wr_en_s      : std_logic := '0';
+    signal acc_wr_en_s        : std_logic := '0';
+    signal sel_mux_banco_in_s : std_logic := '0';
+    signal sel_mux_ula_B_s    : std_logic := '0';
+
+    -- Sinais de saída não precisam de inicialização
     signal carry_out_s        : std_logic;
     signal overflow_out_s     : std_logic;
     signal zero_out_s         : std_logic;
@@ -108,14 +110,6 @@ begin
        
         addr_reg_leitura_s <= "001";
         sel_mux_ula_B_s    <= '0';
-        selec_op_ula_s     <= ULA_ADD;
-        acc_wr_en_s        <= '1';
-        wait for CLK_PERIOD;
-        acc_wr_en_s        <= '0';
-
-        
-        constante_in_s     <= to_unsigned(17, 16);
-        sel_mux_ula_B_s    <= '1';
         selec_op_ula_s     <= ULA_ADD;
         acc_wr_en_s        <= '1';
         wait for CLK_PERIOD;

@@ -15,7 +15,7 @@ entity banco_reg is
 end entity;
 
 architecture a_banco_reg of banco_reg is
-    component registrador is
+    component reg16bits is
         port (
             clk      : in std_logic;
             rst      : in std_logic;
@@ -30,13 +30,13 @@ architecture a_banco_reg of banco_reg is
     signal wr_en_r0, wr_en_r1, wr_en_r2, wr_en_r3, wr_en_r4, wr_en_r5, wr_en_r6 : std_logic;
 
 begin
-    R0: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r0, data_in=>data_in, data_out=>saida_r0);
-    R1: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r1, data_in=>data_in, data_out=>saida_r1);
-    R2: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r2, data_in=>data_in, data_out=>saida_r2);
-    R3: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r3, data_in=>data_in, data_out=>saida_r3);
-    R4: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r4, data_in=>data_in, data_out=>saida_r4);
-    R5: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r5, data_in=>data_in, data_out=>saida_r5);
-    R6: registrador port map (clk=>clk, rst=>rst, wr_en=>wr_en_r6, data_in=>data_in, data_out=>saida_r6);
+    R0: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r0, data_in=>data_in, data_out=>saida_r0);
+    R1: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r1, data_in=>data_in, data_out=>saida_r1);
+    R2: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r2, data_in=>data_in, data_out=>saida_r2);
+    R3: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r3, data_in=>data_in, data_out=>saida_r3);
+    R4: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r4, data_in=>data_in, data_out=>saida_r4);
+    R5: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r5, data_in=>data_in, data_out=>saida_r5);
+    R6: reg16bits port map (clk=>clk, rst=>rst, wr_en=>wr_en_r6, data_in=>data_in, data_out=>saida_r6);
 
     wr_en_r0 <= '1' when wr_en = '1' and addr_w = "000" else '0';
     wr_en_r1 <= '1' when wr_en = '1' and addr_w = "001" else '0';

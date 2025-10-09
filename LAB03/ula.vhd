@@ -32,7 +32,7 @@ architecture arq of ula is
     signal carry_sub      : std_logic;
     signal overflow_sub   : std_logic;
 
-    signal saida_interna : unsigned(15 downto 0); --Não é possível utilizar a saída dentro de architecture, então temos que criar um sinal interno
+    signal saida_interna : unsigned(15 downto 0) := (others => '0'); --Não é possível utilizar a saída dentro de architecture, então temos que criar um sinal interno
 
 begin 
     soma_extendida <= ('0' & entr_A) + ('0' & entr_B);
