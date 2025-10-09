@@ -54,7 +54,7 @@ begin
     begin
         -- Cenário 1: Reset inicial
         -- O registrador deve começar em zero.
-        report "Cenário 1: Testando o Reset inicial.";
+        
         rst_s <= '1';
         wr_en_s <= '0'; -- Não importa, reset tem prioridade
         data_in_s <= x"AAAA"; -- Valor arbitrário na entrada
@@ -63,7 +63,7 @@ begin
         -- Cenário 2: Primeira escrita
         -- Após desativar o reset, na primeira borda de subida com wr_en='1', 
         -- o dado deve ser escrito.
-        report "Cenário 2: Testando a primeira escrita.";
+        
         rst_s <= '0';
         wr_en_s <= '1';
         data_in_s <= x"1234";
@@ -71,26 +71,26 @@ begin
 
         -- Cenário 3: Manter o valor (Hold)
         -- Com wr_en='0', o valor não deve mudar, mesmo com a entrada mudando.
-        report "Cenário 3: Testando a retenção de dados (wr_en = '0').";
+        
         wr_en_s <= '0';
         data_in_s <= x"FFFF"; -- Muda a entrada, mas a saída não deve mudar
         wait for CLK_PERIOD * 2; -- Espera 2 clocks para garantir
 
         -- Cenário 4: Segunda escrita
         -- Habilita a escrita novamente para um novo valor.
-        report "Cenário 4: Testando uma segunda escrita.";
+        
         wr_en_s <= '1';
         data_in_s <= x"C0DE";
         wait for CLK_PERIOD;
 
         -- Cenário 5: Reset assíncrono durante a operação
         -- O reset deve zerar a saída imediatamente.
-        report "Cenário 5: Testando o reset assíncrono.";
+        
         rst_s <= '1';
         wait for CLK_PERIOD / 2; -- Meio ciclo para mostrar que é imediato
         rst_s <= '0';
         
-        report "Fim da simulação.";
+       
         wait; -- Fim do processo, para a simulação [cite: 148]
     end process;
 

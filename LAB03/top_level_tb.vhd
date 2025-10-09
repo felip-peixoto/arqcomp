@@ -80,7 +80,7 @@ begin
     -- 5. Processo de Estímulos (simulando um programa)
     stimulus_process : process
     begin
-        report "--- RESET GERAL ---";
+        
         rst_s <= '1';
         wait for CLK_PERIOD * 2;
         rst_s <= '0';
@@ -88,7 +88,7 @@ begin
         wait for CLK_PERIOD;
         
         -- SIMULANDO: LD R1, #25 (Carrega 25 em R1)
-        report "--- EXECUTANDO: LD R1, #25 ---";
+        
         constante_in_s     <= to_unsigned(25, 16);
         addr_reg_escrita_s <= "001";
         sel_mux_banco_in_s <= '0';
@@ -97,7 +97,7 @@ begin
         banco_wr_en_s      <= '0';
 
         
-        report "--- PREPARANDO: Zerando ACC fazendo SUBI #0 (assumindo ACC=0 do reset) ---";
+        
         constante_in_s     <= to_unsigned(0, 16);
         sel_mux_ula_B_s    <= '1';
         selec_op_ula_s     <= ULA_SUB;
@@ -105,7 +105,7 @@ begin
         wait for CLK_PERIOD;
         acc_wr_en_s        <= '0';
 
-        report "--- EXECUTANDO: MOV ACC, R1 (via ADD R1 com ACC=0) ---";
+       
         addr_reg_leitura_s <= "001";
         sel_mux_ula_B_s    <= '0';
         selec_op_ula_s     <= ULA_ADD;
@@ -113,7 +113,7 @@ begin
         wait for CLK_PERIOD;
         acc_wr_en_s        <= '0';
 
-        report "--- EXECUTANDO: ADDI #17 ---";
+        
         constante_in_s     <= to_unsigned(17, 16);
         sel_mux_ula_B_s    <= '1';
         selec_op_ula_s     <= ULA_ADD;
@@ -121,14 +121,14 @@ begin
         wait for CLK_PERIOD;
         acc_wr_en_s        <= '0';
 
-        report "--- EXECUTANDO: MOV R2, ACC ---";
+        
         addr_reg_escrita_s <= "010";
         sel_mux_banco_in_s <= '1';
         banco_wr_en_s      <= '1';
         wait for CLK_PERIOD;
         banco_wr_en_s      <= '0';
 
-        report "--- FIM DA SIMULACAO ---";
+        
         wait;
     end process;
 
