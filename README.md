@@ -1,7 +1,7 @@
 # arqcomp
 ELEW30 - Arquitetura E Organização De Computadores
 
-Características do BANCO DE REGISTRADORES do processador.
+--Características do BANCO DE REGISTRADORES do processador.
 
 'Acumulador ou não': 'ULA com acumulador',
  'Número de registradores no banco': [7],
@@ -10,3 +10,10 @@ Características do BANCO DE REGISTRADORES do processador.
  'SUB ops': 'Subtração com dois operandos apenas',
  'ADD ctes': 'ADD apenas entre registradores, nunca com constantes',
  'SUB ctes': 'Há instrução que subtrai uma constante'
+
+--Características para a UNIDADE DE CONTROLE do processador. 
+
+Dados de sincronização de operações:
+{'Largura da ROM / tamanho da instrução em bits': [17],
+'Leitura da ROM': ['síncrona']}
+
