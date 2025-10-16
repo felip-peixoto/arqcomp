@@ -10,7 +10,7 @@ architecture a_maquina_estados_tb of maquina_estados_tb is
         port (
             clk      : in std_logic;
             rst      : in std_logic;
-            data_out : out std_logic
+            estado: out std_logic
         );   
     end component; 
 
@@ -24,7 +24,7 @@ begin
     uut : maquina_estados port map(
         clk => clk_s,
         rst => rst_s,
-        data_out => data_out_s
+        estado=> data_out_s
     );
     
     clk_process : process
