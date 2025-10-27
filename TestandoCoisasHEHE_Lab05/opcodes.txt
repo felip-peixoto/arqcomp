@@ -1,0 +1,58 @@
+A. Carrega R3 (o registrador 3) com o valor 5
+B. Carrega R4 com 8
+C. Soma R3 com R4 e guarda em R5
+D. Subtrai 1 de R5
+E. Salta para o endereço 20
+F. Zera R5 (nunca será executada)
+G. No endereço 20, copia R5 para R3
+H. Salta para o passo C desta lista (R5 <= R3+R4)
+I. Zera R3 (nunca será executada)
+
+A:  0001 011 000 0000101
+B:  0001 100 000 0001000
+C:  0010 000 011 0000000
+    0100 000 100 0000000
+    0011 101 000 0000000
+D:  0010 000 101 0000000
+    0101 000 000 0000001
+    0011 101 000 0000000
+E:  1000 000 000 0010100
+F:  0001 101 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+    0000 000 000 0000000
+G:  0010 000 101 0000000
+    0011 011 000 0000000
+H:  1000 000 000 0000010
+I:  0001 011 000 0000000
+
+;Valores irrelevantes expostos
+A:  0001 011 xxx 0000101
+B:  0001 100 xxx 0001000
+C:  0010 xxx 011 xxxxxxx
+    0100 xxx 100 xxxxxxx
+    0011 101 xxx xxxxxxx
+D:  0010 xxx 101 xxxxxxx
+    0101 xxx xxx 0000001
+    0011 101 xxx xxxxxxx
+E:  1000 xxx xxx 0010100
+F:  0001 101 xxx 0000000
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+    0000 xxx xxx xxxxxxx
+G:  0010 xxx 101 xxxxxxx
+    0011 011 xxx xxxxxxx
+H:  1000 xxx xxx 0000010
+I:  0001 011 xxx 0000000
