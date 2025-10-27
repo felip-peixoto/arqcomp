@@ -9,7 +9,7 @@ entity acumulador is
          data_out : out unsigned(15 downto 0)
    );
 end entity;
-Já a arquitetura traz diversas novidades:
+
 architecture a_acumulador of acumulador is
    signal registro: unsigned(15 downto 0);
 begin

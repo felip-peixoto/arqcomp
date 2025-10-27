@@ -9,7 +9,7 @@ entity reg_instr is
          data_out : out unsigned(16 downto 0)
    );
 end entity;
-Já a arquitetura traz diversas novidades:
+
 architecture a_reg_instr of reg_instr is
    signal registro: unsigned(16 downto 0);
 begin

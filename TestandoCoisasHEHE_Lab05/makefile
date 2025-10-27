@@ -2,24 +2,19 @@
 
 # Lista de todos os arquivos VHDL que compõem o processador.
 # A ordem pode importar: componentes básicos (como reg16bits) vêm antes.
-VHDL_COMPONENTS = reg16bits.vhd \
-                  reg_instr.vhd \
-                  pc.vhd \
-                  maq_estados.vhd \
-                  ula.vhd \
-                  rom.vhd \
-                  acumulador.vhd \
-                  banco_reg.vhd
+# --- Configuração do Projeto ---
 
-# Arquivo VHDL do "top-level" (o processador em si)
-VHDL_TOP = calc_prog.vhd
+# CORREÇÃO AQUI: maq_estados não tem dependências
+VHDL_COMPONENTS = 
 
-# Arquivo VHDL do testbench
-TB_SOURCE = tb_lab05.vhd
+# CORREÇÃO AQUI: O componente a testar
+VHDL_TOP = maq_estados.vhd
 
-# Nome da ENTIDADE do testbench (o que vai ser executado)
-# (Assumindo que o nome da entidade dentro de tb_lab05.vhd é "tb_lab05")
-TB_ENTITY = tb_lab05
+# CORREÇÃO AQUI: O testbench dele
+TB_SOURCE = maq_estados_tb.vhd
+
+# CORREÇÃO AQUI: A entidade do testbench
+TB_ENTITY = maq_estados_tb
 
 # --- Configuração dos Arquivos de Saída ---
 WAVE = wave.ghw
