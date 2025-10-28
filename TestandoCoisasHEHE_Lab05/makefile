@@ -1,18 +1,24 @@
 # --- Configuração do Projeto ---
 
 # Lista de todos os arquivos VHDL que compõem o processador.
-# A ordem pode importar: componentes básicos (como reg16bits) vêm antes.
-VHDL_COMPONENTS = 
+# (Todos os "tijolos" que o processador.vhd utiliza)
+VHDL_COMPONENTS = reg16bits.vhd \
+                  acumulador.vhd \
+                  reg_instr.vhd \
+                  pc.vhd \
+                  maq_estados.vhd \
+                  ula.vhd \
+                  rom.vhd \
+                  banco_reg.vhd
 
 # Arquivo VHDL do "top-level" (o processador em si)
-VHDL_TOP = calc_prog.vhd
+VHDL_TOP = processador.vhd
 
 # Arquivo VHDL do testbench
-TB_SOURCE = tb_lab05.vhd
+TB_SOURCE = processador_tb.vhd
 
 # Nome da ENTIDADE do testbench (o que vai ser executado)
-# (Assumindo que o nome da entidade dentro de tb_lab05.vhd é "tb_lab05")
-TB_ENTITY = tb_lab05
+TB_ENTITY = processador_tb
 
 # --- Configuração dos Arquivos de Saída ---
 WAVE = wave.ghw
@@ -34,11 +40,8 @@ simular: $(VHDL_COMPONENTS) $(VHDL_TOP) $(TB_SOURCE)
 	@echo ">>> Simulação concluída. Arquivo gerado: $(WAVE)"
 
 # Alvo para visualizar as formas de onda
-# O '&' no final roda o gtkwave em background
 view: $(WAVE)
 	@echo ">>> Abrindo o GTKWave..."
-	@echo "    Arquivo de onda: $(WAVE)"
-	@echo "    Arquivo de sinais: $(GTKWAVE_SAVE)"
 	gtkwave $(WAVE) --save=$(GTKWAVE_SAVE) &
 
 # Alvo para simular e já abrir o visualizador
