@@ -1,0 +1,16 @@
+   MSB b16                  b0 LSB
+         |                  |
+NOP:     0000 xxx xxx xxxxxxx
+LD:      0001 ddd xxx ccccccc
+MOV A,R: 0010 xxx fff xxxxxxx
+MOV R,A: 0011 ddd xxx xxxxxxx
+ADD A,R: 0100 xxx fff xxxxxxx
+SUBI:    0101 xxx xxx ccccccc
+JMP:     1000 xxx xxx eeeeeee
+
+onde
+    ddd       identifica o registrador destino
+    fff       identifica o registrador fonte 
+    ccc       identifica a constante
+    eee       identifica o endereço 
+    xxx       é irrelevante 
