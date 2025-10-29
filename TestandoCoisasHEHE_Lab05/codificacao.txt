@@ -6,7 +6,9 @@ MOV A,R: 0010 xxx fff xxxxxxx
 MOV R,A: 0011 ddd xxx xxxxxxx
 ADD A,R: 0100 xxx fff xxxxxxx
 SUBI:    0101 xxx xxx ccccccc
+SUB A,R: 0110 xxx sss xxxxxxx
 JMP:     1000 xxx xxx eeeeeee
+
 
 onde
     ddd       identifica o registrador destino

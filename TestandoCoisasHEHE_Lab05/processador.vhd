@@ -132,7 +132,8 @@ begin
     s_acc_wr_en <= '1' when s_estado = "10" and 
                            (s_opcode = "0010" or  -- MOV A, R
                             s_opcode = "0100" or  -- ADD A, R
-                            s_opcode = "0101")    -- SUBI A, const
+                            s_opcode = "0101" or  -- SUBI A, const
+                            s_opcode = "0110")    -- SUB A, R
                    else '0';
                     
     s_regbank_wr_en <= '1' when s_estado = "10" and
@@ -150,9 +151,9 @@ begin
                 s_ula_out;                                -- ADD/SUBI
     
     s_ula_A <= s_acc_out;
-    s_ula_B <= s_regbank_out when s_opcode = "0100" else  -- ADD A, R
-               s_imediato_16bit;                     -- SUBI A, const
+    s_ula_B <= s_regbank_out when (s_opcode = "0100" or s_opcode = "0110") else  -- ADD A, R ou SUB A, R
+           s_imediato_16bit;                     -- SUBI A, const
     
-    s_sel_op_ula <= "00" when s_opcode = "0100" else  -- ADD A, R
-                    "01";                             -- SUBI A, const
+    s_sel_op_ula <= "01" when (s_opcode = "0101" or s_opcode = "0110") else -- SUBI ou SUB A, R
+                "00";                             -- ADD A, R
 end architecture;
